@@ -579,6 +579,8 @@ int GFX_updateColors(void) {
 #ifndef CPU_FREQ_BASE
 #define CPU_FREQ_BASE "/sys/devices/system/cpu/cpu0/cpufreq"
 #endif
+int cpu_max_khz = 0;
+
 #define STARTUP_CPU_MAX_PATH CPU_FREQ_BASE "/scaling_max_freq"
 #define STARTUP_CPU_PEAK_PATH CPU_FREQ_BASE "/cpuinfo_max_freq"
 #define STARTUP_CPU_BOOST_US 1000000

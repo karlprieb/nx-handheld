@@ -358,6 +358,10 @@ static char* overclock_labels[] = {
 	"Auto",
 	NULL,
 };
+#ifndef CPU_MAX_LABELS
+#define CPU_MAX_LABELS
+#endif
+static char* cpu_max_labels[] = {"Auto", CPU_MAX_LABELS NULL};
 
 // PlayStation's by default; Config_useMegaDrivePads swaps in picodrive's 3/6-button pads
 char* gamepad_labels[] = {
@@ -476,6 +480,15 @@ struct Config config = {
 						 .value = 3,
 						 .values = overclock_labels,
 						 .labels = overclock_labels,
+					 },
+					 [FE_OPT_CPU_MAX] = {
+						 .key = "minarch_cpu_max",
+						 .name = "Max CPU Clock",
+						 .desc = "Caps the CPU clock (MHz) in every CPU Speed mode.\nAuto uses the device maximum.",
+						 .default_value = 0,
+						 .value = 0,
+						 .values = cpu_max_labels,
+						 .labels = cpu_max_labels,
 					 },
 					 [FE_OPT_DEBUG] = {
 						 .key = "minarch_debug_hud",
@@ -749,6 +762,7 @@ struct Config config = {
 
 void setOverclock(int i) {
 	overclock = i;
+	cpu_max_khz = cpu_max > 0 ? atoi(cpu_max_labels[cpu_max]) * 1000 : 0;
 	switch (i) {
 	case 0:
 		PWR_setCPUSpeed(CPU_SPEED_POWERSAVE);
@@ -837,6 +851,9 @@ void Config_syncFrontend(char* key, int value) {
 	} else if (exactMatch(key, config.frontend.options[FE_OPT_OVERCLOCK].key)) {
 		overclock = value;
 		i = FE_OPT_OVERCLOCK;
+	} else if (exactMatch(key, config.frontend.options[FE_OPT_CPU_MAX].key)) {
+		cpu_max = value;
+		i = FE_OPT_CPU_MAX;
 	} else if (exactMatch(key, config.frontend.options[FE_OPT_DEBUG].key)) {
 		show_debug = value;
 		i = FE_OPT_DEBUG;

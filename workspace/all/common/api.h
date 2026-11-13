@@ -892,6 +892,8 @@ void PLAT_setCPUSpeedAuto(void);
 // policy0 alone when its launch.sh took cpu4 offline — so a pak's range
 // means the same thing on either topology.
 void PLAT_setCPUSpeedRange(int min_khz, int max_khz);
+// kHz cap every PLAT_setCPUSpeed* call clamps to, 0 = none. minarch sets it from its Max CPU Clock option.
+extern int cpu_max_khz;
 // A shader turned on or off in a pak that opted in to the GPU shader boost
 // (shared/bin/gpu-shader-boost.sh exports NX_GPU_SHADER_BOOST): tg5050 runs the GPU
 // at the performance governor while `on`, and goes back to `base_governor` (the

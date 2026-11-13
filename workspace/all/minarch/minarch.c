@@ -89,6 +89,7 @@ int rewind_cfg_lz4_acceleration = MINARCH_DEFAULT_REWIND_LZ4_ACCELERATION;
 // allocate the rewind buffers (they'd do it once per rewind key).
 int rewind_init_ready = 0;
 int overclock = 3; // auto
+int cpu_max = 0;	// index into cpu_max_labels, 0 = auto
 int has_custom_controllers = 0;
 int gamepad_type = 0;		 // index in gamepad_labels/gamepad_values
 int gamepad_digital = 0;	 // every type is a digital pad (picodrive's 3/6-button): the stick stays the D-pad on each

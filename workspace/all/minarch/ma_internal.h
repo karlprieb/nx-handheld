@@ -119,6 +119,7 @@ extern int sync_ref;
 extern int show_debug;
 extern int max_ff_speed;
 extern int overclock;
+extern int cpu_max;
 
 extern int DEVICE_WIDTH;
 extern int DEVICE_HEIGHT;
@@ -221,6 +222,7 @@ enum {
 	FE_OPT_SHARPNESS,
 	FE_OPT_SYNC_REFERENCE,
 	FE_OPT_OVERCLOCK,
+	FE_OPT_CPU_MAX,
 	FE_OPT_DEBUG,
 	FE_OPT_MAXFF,
 	FE_OPT_FF_AUDIO,

@@ -143,6 +143,8 @@ extern float ui_scale;
 // cpu4 = the big cluster (policy4): the little cluster (cpu0-3) already runs
 // at its ceiling, so capping/boosting cpu0 would do nothing on this SoC.
 #define CPU_FREQ_BASE "/sys/devices/system/cpu/cpu4/cpufreq"
+// minarch Max CPU Clock steps in MHz, from the big-core table (the little cluster tops out at 1416)
+#define CPU_MAX_LABELS "2088", "1992", "1800", "1680", "1488", "1200",
 #define MUTE_VOLUME_RAW 0
 
 // modetest -v -s 147@100:1280x720

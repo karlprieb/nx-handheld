@@ -172,6 +172,8 @@ extern float ui_scale;
 // cpufreq policy that PLAT_setCPUSpeed caps and GFX_init's startup boost lifts.
 // Shared here so api.c targets the same policy the platform actually throttles.
 #define CPU_FREQ_BASE "/sys/devices/system/cpu/cpu0/cpufreq"
+// minarch Max CPU Clock steps in MHz, from the A133P table (2000 is above its rated 1800)
+#define CPU_MAX_LABELS "1800", "1608", "1416", "1200",
 #define MUTE_VOLUME_RAW 0
 
 // this should be set to the devices native screen refresh rate

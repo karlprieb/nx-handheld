@@ -475,6 +475,9 @@ void PLAT_setGPUShaderBoost(int on, const char* base_governor) {
 static void setGovernor(const char* governor) {
 	putFile(GOVERNOR_PATH, (char*)governor);
 }
+static int capFreq(int khz) {
+	return cpu_max_khz > 0 && khz > cpu_max_khz ? cpu_max_khz : khz;
+}
 static void setFreqRange(int min_khz, int max_khz) {
 	// Write min, then max, then min again. Lowering (e.g. from a fixed 2000/2000
 	// preset to 408-1008) needs min first, or the kernel rejects a max below the
@@ -483,6 +486,8 @@ static void setFreqRange(int min_khz, int max_khz) {
 	// valid in both directions. This is also what lets CPU_SPEED_MENU drop to its
 	// capped range from a fixed-clock preset (POWERSAVE/NORMAL/PERFORMANCE),
 	// whose max write used to be rejected.
+	min_khz = capFreq(min_khz);
+	max_khz = capFreq(max_khz);
 	putInt(MIN_FREQ_PATH, min_khz);
 	putInt(MAX_FREQ_PATH, max_khz);
 	putInt(MIN_FREQ_PATH, min_khz);
@@ -495,6 +500,8 @@ static void setFreqRange(int min_khz, int max_khz) {
 // the last one lands). min-max-min is valid in both directions.
 static void setPolicyRange(const char* cpu_dir, const char* governor, int min_khz, int max_khz) {
 	char path[256];
+	min_khz = capFreq(min_khz);
+	max_khz = capFreq(max_khz);
 	snprintf(path, sizeof(path), "%s/cpufreq/scaling_governor", cpu_dir);
 	putFile(path, (char*)governor);
 	snprintf(path, sizeof(path), "%s/cpufreq/scaling_min_freq", cpu_dir);
